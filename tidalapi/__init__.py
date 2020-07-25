@@ -420,7 +420,6 @@ class Favorites(object):
 
     def add_playlist_track (self, track_id_list, playlist_id, to_index=0):
         #track_id_list = ["33500418"]
-        #to_index = 0
         etag = self._session.request('GET','playlists/%s' % playlist_id).headers['ETag']
         headers = {'if-none-match' : etag}
         data = {
@@ -431,10 +430,8 @@ class Favorites(object):
         return result
 
     def delete_playlist_item (self, item_index, playlist_id):
-        #track_id_list=["0"]
         etag = self._session.request('GET','playlists/%s/tracks' % playlist_id).headers['ETag']
         headers = {'if-none-match' : etag}
-        #track_index_string = ",".join(track_id_list)
         result = self._session.request('DELETE','playlists/%s/items/%s'%(playlist_id,item_index),headers=headers,params={'order':'INDEX','orderDirection':'ASC'})
         return result
 
