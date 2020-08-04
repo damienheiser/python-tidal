@@ -20,8 +20,8 @@
 from __future__ import unicode_literals
 from enum import Enum
 
-IMG_URL = "http://images.osl.wimpmusic.com/im/im?w={width}&h={height}&{id_type}={id}"
-
+#IMG_URL = "http://images.osl.wimpmusic.com/im/im?w={width}&h={height}&{id_type}={id}"
+IMG_URL = "http://resources.tidal.com/images/{cover}/{width}x{height}.jpg"
 
 class Model(object):
     id = None
@@ -37,10 +37,13 @@ class Album(Model):
     num_tracks = -1
     duration = -1
     release_date = None
+    cover = None
 
     @property
     def image(self, width=1280, height=1280):
-        return IMG_URL.format(width=width, height=height, id=self.id, id_type='albumid')
+        coverDirectory = self.cover.replace('-', '/')
+        #return IMG_URL.format(width=width, height=height, id=self.id, id_type='albumid')
+        return IMG_URL.format(cover=coverDirectory, width=width, height=height)
 
     def picture(self, width, height):
         """
